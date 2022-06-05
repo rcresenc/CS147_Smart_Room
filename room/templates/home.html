@@ -1,0 +1,93 @@
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+</head>
+<style>
+table, th, td {
+}
+.block {
+  display: block;
+  width: 15%;
+  border: none;
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+</style>
+<body>
+  <h2>Room Activity</h2>
+  <table style="width:100%">
+    <tr>
+      <th>Light: {{current[1]}}</th>
+    </tr>
+    <tr>
+      <br>
+    </tr>
+    <tr>
+      <th>Sound: {{current[0]}}</th>
+    </tr>
+  </table>
+  <center>
+    <h1>{{ title }}</h1>
+  </center>
+  <center>
+    <canvas id="chart" width="600" height="400"></canvas>
+    <script>
+      // bar chart data
+      var barData = {
+        labels : [
+          {% for item in labels %}
+           "{{ item }}",
+          {% endfor %}
+        ],
+
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          data : [
+            {% for item in valuesA %}
+               "{{ item }}",
+              {% endfor %}
+            ]
+          },
+          {
+            fillColor: "rgba(255,0,0,1.0)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            data : [
+              {% for item in valuesB %}
+                 "{{ item }}",
+              {% endfor %}
+            ]
+          }
+        ]
+      }
+
+     // get bar chart canvas
+     var mychart = document.getElementById("chart").getContext("2d");
+
+       steps = 10
+       max = {{max}}
+
+     // draw bar chart
+     new Chart(mychart).Bar(barData, {
+       scaleOverride: true,
+       scaleSteps: steps,
+       scaleStepWidth: Math.ceil(max / steps),
+       scaleStartValue: 0,
+       scaleShowVerticalLines: true,
+       scaleShowGridLines : true,
+       barShowStroke : true,
+       scaleShowLabels: true
+       }
+     );
+    </script>
+  </center>
+  <a type="button" class = "block" href="{{ url_for('data') }}">Incoming Data</a>
+</body>
+</html> 
