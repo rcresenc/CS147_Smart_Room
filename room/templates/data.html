@@ -1,0 +1,46 @@
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+  text-align: center;
+}
+.block {
+  display: block;
+  width: 15%;
+  border: none;
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+</style>
+<body>
+
+<a type="button" class="block" href="{{ url_for('home') }}">Home</a>
+
+<h2>Incoming Data (Living Room): </h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Time</th>
+    <th>Light</th>
+    <th>Sound</th>
+  </tr>
+  {% for i in d %}
+  <tr>
+    <td>{{i[0]}}</td>
+    <td>{{i[1]}}</td>
+    <td>{{i[2]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+<form action="" method="post">
+    <input type="submit" name="Save Data" value="SAVE DATA" />
+</form>
+
+</body>
+</html>
+
