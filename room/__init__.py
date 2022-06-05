@@ -128,7 +128,7 @@ def pastA():
 
 @app.route("/past/sunday", methods = ["GET"])
 def pastB():
-    path_to_file = 'data.txt'
+    path_to_file = 'data_sunday.txt'
     data = getData(path_to_file)
     m = max([max(data[1]),max(data[2])])
     return render_template('past.html', title='Sunday Analysis', max=m, labels=data[0], valuesA=data[1], valuesB = data[2])
